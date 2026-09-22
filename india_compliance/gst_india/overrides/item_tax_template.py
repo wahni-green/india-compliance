@@ -7,6 +7,9 @@ from india_compliance.gst_india.utils import get_gst_accounts_by_type
 
 
 def validate(doc, method=None):
+    if frappe.get_cached_value("Company", doc.company, "country") != "India":
+        return
+
     doc.gst_rate = flt(doc.gst_rate)
     validate_zero_tax_options(doc)
     validate_tax_rates(doc)
